@@ -2,21 +2,18 @@
 int Speed;
 Servo ESC;
 
-void setup(){
+void shootSetup(){
     ESC.attach(9, 1000, 2000);
+    delay(1);
+    ESC.write(10);
 }
 
-void loop() {
-    Speed = analogRead(A0);
-    Speed = map(Speed, 0, 1023, 0, 180);
-
+/**
+  power is from 0 - 100
+  */
+void shoot(int power) {
+    Speed = (power / 100) * 180;
     ESC.write(Speed);
-    /*
-    ESC.write(90);
-    ESC.write(Speed);
-    ESC.write(100);
-    ESC.write(Speed);
-    ESC.write(90);
-    ESC.write(180);
-    */
+    delay(2000);
+    ESC.write(0);
 }
