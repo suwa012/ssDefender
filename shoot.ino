@@ -1,19 +1,23 @@
 #include <Servo.h>
 int Speed;
-Servo ESC;
+Servo ESC1;
+Servo ESC2;
 
 void shootSetup(){
-    ESC.attach(9, 1000, 2000);
+    ESC1.attach(9, 1000, 2000);
+    ESC2.attach(10, 1000, 2000);
     delay(1);
-    ESC.write(10);
+    ESC1.write(10);
+    ESC2.write(10);
 }
 
 /**
   power is from 0 - 100
   */
 void shoot(int power) {
-    Speed = (power / 100) * 180;
-    ESC.write(Speed);
-    delay(2000);
-    ESC.write(0);
+    Speed = power * 180 / 100;
+    ESC1.write(Speed);
+    ESC2.write(Speed);
+    // delay(2000);
+    // ESC.write(0);
 }
