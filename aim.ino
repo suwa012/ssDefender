@@ -9,7 +9,6 @@ void aimSetup() {
 
     verticalServo.attach(7);
     verticalServo.writeMicroseconds(1000);
-    horizontalServo.writeMicroseconds(500);
 }
 
 void aimBarrel(float horizontal, float vertical) {
