@@ -8,6 +8,6 @@ void setupBallLoader() {
 void loadNerfBall() {
     // Load nerf ball
     digitalWrite(BALL_LOADER_SERVO_POWER, LOW);
-    delay(400);
+    delay(150);
     digitalWrite(BALL_LOADER_SERVO_POWER, HIGH);
 }

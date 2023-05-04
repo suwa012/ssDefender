@@ -14,10 +14,16 @@ void shootSetup(){
 /**
   power is from 0 - 100
   */
-void shoot(int power) {
+void shoot(int power, bool doInit) {
     Speed = power * 180 / 100;
+    int minSpeed = 36;
+    if(Speed < minSpeed && doInit == true) {
+        ESC1.write(minSpeed);
+        ESC2.write(minSpeed);
+
+        delay(500);
+    }
+
     ESC1.write(Speed);
     ESC2.write(Speed);
-    // delay(2000);
-    // ESC.write(0);
 }

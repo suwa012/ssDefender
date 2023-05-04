@@ -30,6 +30,7 @@ void aimBarrel(float horizontal, float vertical) {
 
     /* Vertical aim (linear actuator) */
     verticalServo.writeMicroseconds(1000 + (1000 * vertical));
+    // verticalServo.writeMicroseconds(2000);
     // delay(2000); // Delay so linear servo can complete route
     // Cut off power to linear actuator
     digitalWrite(LINEAR_SERVO_POWER, HIGH);

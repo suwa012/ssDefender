@@ -1,37 +1,59 @@
 #include <Servo.h>
+bool doInit;
 
 void setup() {
     Serial.begin(9600);
     setupBallLoader();
     aimSetup();
     shootSetup();
+    doInit = true;
     delay(5000);
 }
 
 void loop() {
-    int horizontal_pos[9] = {120, 120, 120, 120, 120, 120, 120, 120, 120
-    };
-    /*
-       {37.3, 66.25, 113.75, 142.77, // low targets
-        36.46, 66.05, 90, 124.71, 144.22 // tubs
-    };
-    */
+    float low_targets_h[4] = {53, 83, 127, 146};
+    // float tubs_h[5] = {146, 146, 146, 146, 146};
+    float tubs_h[5] = {53, 70, 98, 128, 146};
 
-    // int horizontal_pos[9] = {53, 81, 120, 66.05, 90, 113.95, 124.71, 143.54, 144.22};
-    // int horizontal_pos[9] = {0, 360, 360, 360, 0, 360, 0, 360, 0};
-    // int horizontal_pos[9] = {0, 90, 180, 90, 0, 30, 60, 90, 0};
-    // int vertical_pos[9] = {0.25, 0, 0.30, 0, 1, 0, 0.30, 0, 0.25};
-    int vertical_pos[9] = {0, 0, 0, 0, 0.5, 0.5, 0.5, 0.5, 0.5};
-    int firing_speed[9] = {12, 12, 12, 12, 12, 12, 12, 12, 12};
+    float low_targets_v[4] = {0, 0, 0, 0};
+    float tubs_v[5] = {0.8, 1, 0.8, 1, 0.8};
 
-    for(int i = 0; i <= 9; i++) {
-        aimBarrel(horizontal_pos[i], vertical_pos[i]);
+    int firing_speed[9] = {12, 10, 12, 10, 12, 14, 10, 14, 10};
 
-        shoot(firing_speed[i]);
+    for(int i = 0; i < 9; i++) {
+        float horizontal_pos;
+        float vertical_pos;
 
-        delay(1000);
+        int j;
+
+        /* TESTING
+           ------------------------------------------
+           j = i % 4;
+           ----------- TESTING ENDS -----------------
+        */
+
+        if(i < 4) {
+            j = i;
+            horizontal_pos = low_targets_h[j];
+            vertical_pos = low_targets_v[j];
+        } else {
+            j = i - 4;
+            horizontal_pos = tubs_h[j];
+            vertical_pos = tubs_v[j];
+        }
+
+        aimBarrel(horizontal_pos, vertical_pos);
+
+        if((i + 1) % 4 == 0) {
+            shoot(0, false);
+            doInit = true;
+            delay(10000);
+        }
+
+        shoot(firing_speed[i], doInit); // set firing speed
+        doInit = false;
+
+        delay(2500); // give the motors time to get to firing speed
         loadNerfBall();
-
-        delay(2000);
     }
 }
