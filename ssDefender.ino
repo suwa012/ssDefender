@@ -7,7 +7,7 @@ void setup() {
     aimSetup();
     shootSetup();
     doInit = true;
-    delay(5000);
+    delay(500);
 }
 
 void loop() {
@@ -18,13 +18,14 @@ void loop() {
     float low_targets_v[4] = {0, 0, 0, 0};
     float tubs_v[5] = {0.8, 1, 0.8, 1, 0.8};
 
-    int firing_speed[9] = {12, 10, 12, 10, 12, 14, 10, 14, 10};
+    int firing_speed[9] = {12, 10, 10, 12,
+        14, 12, 10, 12, 14};
 
     for(int i = 0; i < 9; i++) {
         float horizontal_pos;
         float vertical_pos;
 
-        int j;
+        int j = i;
 
         /* TESTING
            ------------------------------------------
@@ -44,16 +45,17 @@ void loop() {
 
         aimBarrel(horizontal_pos, vertical_pos);
 
-        if((i + 1) % 4 == 0) {
+        if(i % 4 == 0) {
             shoot(0, false);
             doInit = true;
-            delay(10000);
+            delay(5000);
         }
 
         shoot(firing_speed[i], doInit); // set firing speed
         doInit = false;
 
-        delay(2500); // give the motors time to get to firing speed
+        delay(2000); // give the motors time to get to firing speed
         loadNerfBall();
+        delay(1000); // Barrel is longer so we need a wait time so the nerf ball can exit the tube.
     }
 }

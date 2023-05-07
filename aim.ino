@@ -24,7 +24,6 @@ void aimBarrel(float horizontal, float vertical) {
     // Supply power to linear actuator
     digitalWrite(LINEAR_SERVO_POWER, LOW);
 
-    delay(3000);
     horizontalServo.writeMicroseconds(newHorizontal);
     Serial.println(horizontal);
 
