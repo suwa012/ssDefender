@@ -3,7 +3,7 @@ int Speed;
 Servo ESC1;
 
 void shootSetup(){
-    ESC1.attach(13, 1000, 2000);
+    ESC1.attach(11, 1000, 2000);
     delay(1);
     ESC1.write(10);
 }
