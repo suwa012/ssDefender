@@ -4,8 +4,8 @@ Servo ESC1;
 Servo ESC2;
 
 void shootSetup(){
-    ESC1.attach(9, 1000, 2000);
-    ESC2.attach(10, 1000, 2000);
+    ESC1.attach(12, 1000, 2000);
+    ESC2.attach(13, 1000, 2000);
     delay(1);
     ESC1.write(10);
     ESC2.write(10);
