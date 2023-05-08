@@ -1,14 +1,11 @@
 #include <Servo.h>
 int Speed;
 Servo ESC1;
-Servo ESC2;
 
 void shootSetup(){
-    ESC1.attach(12, 1000, 2000);
-    ESC2.attach(13, 1000, 2000);
+    ESC1.attach(13, 1000, 2000);
     delay(1);
     ESC1.write(10);
-    ESC2.write(10);
 }
 
 /**
@@ -19,11 +16,9 @@ void shoot(int power, bool doInit) {
     int minSpeed = 36;
     if(Speed < minSpeed && doInit == true) {
         ESC1.write(minSpeed);
-        ESC2.write(minSpeed);
 
         delay(500);
     }
 
     ESC1.write(Speed);
-    ESC2.write(Speed);
 }
